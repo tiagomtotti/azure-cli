@@ -9,4 +9,12 @@ RUN set -x && \
     cp /usr/bin/envsubst /usr/local/bin/envsubst && \
     apk del build_deps
 
+ADD https://storage.googleapis.com/kubernetes-release/release/v1.10.3/bin/linux/amd64/kubectl /usr/local/bin/kubectl
+ENV HOME=/config
+
+RUN set -x && \
+    apk add --no-cache curl ca-certificates && \
+    chmod +x /usr/local/bin/kubectl && \
+    kubectl version --client
+
 CMD bash
